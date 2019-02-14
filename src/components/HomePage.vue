@@ -201,6 +201,10 @@
         <a class="mediaIcon" target="_blank" href="https://www.linkedin.com/in/karel-heyndrickx/">
           <i class="fa fa-linkedin"></i>
         </a>
+         <a class="mediaIcon" target="_blank" href="https://github.com/KarelHeyndrickx">
+          <i class="fa fa-github"></i>
+        </a>
+        
       </div>
       <h5
         class="subtitle is-4 has-text-centered white margin-top-20"
@@ -352,8 +356,8 @@ export default {
         case "Breakout":
           return [
             require("../assets/images/projects/breakout/sessioncode.png"),
-            require("../assets/images/projects/breakout/groupselection.png"),
-            require("../assets/images/projects/breakout/task.png"),
+            require("../assets/images/projects/breakout/groupselection.jpg"),
+            require("../assets/images/projects/breakout/task.jpg"),
             require("../assets/images/projects/breakout/groups.png"),
             require("../assets/images/projects/breakout/overview.png")
           ];
@@ -368,8 +372,8 @@ export default {
         case "Oude portfolio":
           return [
             require("../assets/images/projects/oldportfolio/tetris.png"),
-            require("../assets/images/projects/oldportfolio/banner.png"),
-            require("../assets/images/projects/oldportfolio/me.png"),
+            require("../assets/images/projects/oldportfolio/banner.jpg"),
+            require("../assets/images/projects/oldportfolio/me.jpg"),
             require("../assets/images/projects/oldportfolio/projects.png")
           ];
         default:
@@ -512,6 +516,7 @@ textarea {
   width: 50%;
   margin: 0 auto;
   min-width: 300px;
+  margin-top: 20px;
 }
 
 .contact {
