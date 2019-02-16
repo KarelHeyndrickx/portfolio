@@ -53,6 +53,12 @@
       <div class="introductiontext">
         <h3 class="title">Hi!</h3>
         <p>Mijn naam is Karel Heyndrickx, ik ben een student in de Informatica - Programmeren en een zeer enthousiaste web- en applicatiedesigner.</p>
+        <p>Om meer te zien over mijn ervaring klik hier.</p>
+        <a
+                class="button introButton"
+                v-smooth-scroll="{ duration: 1000, offset: 0}"
+                href="#projects"
+              >Zie projecten</a>
       </div>
       <img id="imgSnowscape" src="../assets/images/elements/snowscape.png" alt="photo of snowscape">
     </div>
@@ -193,41 +199,58 @@
         </h4>
       </div>
       <div class="contactcontent">
-      <h5 class="subtitle is-4 has-text-centered white">Vind mij op</h5>
-      <div id="socialmedia">
-        <a class="mediaIcon" target="_blank" href="https://www.facebook.com/heyndrickx.karel">
-          <i class="fa fa-facebook-f"></i>
-        </a>
-        <a class="mediaIcon" target="_blank" href="https://www.linkedin.com/in/karel-heyndrickx/">
-          <i class="fa fa-linkedin"></i>
-        </a>
-         <a class="mediaIcon" target="_blank" href="https://github.com/KarelHeyndrickx">
-          <i class="fa fa-github"></i>
-        </a>
-        
-      </div>
-      <h5
-        class="subtitle is-4 has-text-centered white margin-top-20"
-      >Of stuur mij direct een mailtje!</h5>
+        <h5 class="subtitle is-4 has-text-centered white">Vind mij op</h5>
+        <div id="socialmedia">
+          <a class="mediaIcon" target="_blank" href="https://www.facebook.com/heyndrickx.karel">
+            <i class="fa fa-facebook-f"></i>
+          </a>
+          <a class="mediaIcon" target="_blank" href="https://www.linkedin.com/in/karel-heyndrickx/">
+            <i class="fa fa-linkedin"></i>
+          </a>
+          <a class="mediaIcon" target="_blank" href="https://github.com/KarelHeyndrickx">
+            <i class="fa fa-github"></i>
+          </a>
+        </div>
+        <h5
+          class="subtitle is-4 has-text-centered white margin-top-20"
+        >Of stuur mij direct een mailtje!</h5>
       </div>
       <form @submit.prevent="sendEmail" class="contactform">
         <div class="columns">
           <div class="column field">
             <label class="label">Naam</label>
             <div class="control">
-              <input class="input" type="text">
+              <input
+                name="name"
+                v-model="emailForm.name"
+                v-validate="'required|alpha'"
+                :class="{'input': true, 'is-danger': errors.has('name') }"
+                type="text"
+                data-vv-delay="1000"
+              >
+              <transition name="alert-in">
+              <div class="alert" v-if="errors.has('name')">
+                <i class="fa fa-exclamation-triangle"></i> Gelieve een naam in te vullen!
+              </div>
+              </transition>
             </div>
           </div>
           <div class="column field">
-            <label class="label">Email</label>
-            <div class="control has-icons-left has-icons-right">
-              <input class="input is-danger" type="email">
-              <span class="icon is-small is-left">
-                <i class="fa fa-envelope"></i>
-              </span>
-              <span class="icon is-small is-right">
-                <i class="fa fa-exclamation-triangle"></i>
-              </span>
+            <label class="label">E-mailadres</label>
+            <div class="control">
+              <input
+                name="email"
+                v-model="emailForm.email"
+                v-validate="'required|email|'"
+                :class="{'input': true, 'is-danger': errors.has('email') }"
+                type="text"
+                data-vv-delay="1000"
+              >
+               <transition name="alert-in">
+              <div class="alert" v-if="errors.has('email')">
+                <i class="fa fa-exclamation-triangle"></i> Gelieve een geldig e-mailadres in te geven.
+              </div>
+               </transition>
             </div>
           </div>
         </div>
@@ -235,7 +258,20 @@
         <div class="field">
           <label class="label">Bericht</label>
           <div class="control">
-            <textarea class="textarea"></textarea>
+            <textarea
+              class="textarea"
+              name="message"
+              v-model="emailForm.message"
+              v-validate="'required|alpha|min:5'"
+              :class="{'input': true, 'is-danger': errors.has('message') }"
+              data-vv-delay="1000"
+            ></textarea>
+             <transition name="alert-in">
+            <div class="alert" v-if="errors.has('message')">
+              <i class="fa fa-exclamation-triangle"></i>
+              Gelieve een bericht langer als 5 karakters in te geven.
+            </div>
+             </transition>
           </div>
         </div>
         <div class="field">
@@ -319,7 +355,11 @@ export default {
         githubLinkShort: "Github",
         tagclass: "is-primary"
       },
-      show: true
+      emailForm: {
+        name: "",
+        email: "",
+        message: ""
+      }
     };
   },
   components: {
@@ -334,6 +374,15 @@ export default {
       setInterval(() => {
         this.$refs.slideshow.next();
       }, 3000);
+    },
+    sendMail() {
+      this.$validator.validateAll().then(result => {
+        if (result) {
+          //Send mail
+        } else {
+          //Don't send mail
+        }
+      });
     }
   },
   computed: {
@@ -378,7 +427,8 @@ export default {
           ];
         default:
           return [
-            require("../assets/images/projects/questionmanager/questionmanager.png")
+            require("../assets/images/projects/questionmanager/questionmanager.png"),
+            require("../assets/images/projects/questionmanager/questionlist.png")
           ];
       }
     }
@@ -459,6 +509,24 @@ nav {
 .introductiontext .title {
   color: white !important;
 }
+.introductiontext p{
+  margin-bottom: 30px !important;
+}
+.introButton{
+   color: white !important ;
+  border: none !important;
+  background-color: #4ca179 !important;
+  transition: 0.4s;
+  border-radius: 20px !important;
+  cursor: pointer;
+  padding: 20px !important;
+  line-height: 0px !important;
+}
+.introButton:hover {
+  background-color: white !important;
+  border-color: white !important;
+  color: #4ca179 !important;
+}
 #skills .window * {
   margin: 20px 0px !important;
 }
@@ -507,8 +575,8 @@ textarea {
   font-size: 1.1em !important;
   font-weight: 100;
 }
-.contactcontent{
-   width: 50%;
+.contactcontent {
+  width: 50%;
   margin: 0 auto;
   min-width: 300px;
 }
@@ -533,10 +601,10 @@ textarea {
 }
 
 #contactWindow {
-position: relative;
-    max-width: 450px;
-    width: 80%;
-    margin: -60px auto 40px
+  position: relative;
+  max-width: 450px;
+  width: 80%;
+  margin: -60px auto 40px;
 }
 .contactButton {
   color: white !important ;
@@ -628,7 +696,7 @@ input:focus {
   50% {
     left: 110%;
   }
- 
+
   100% {
     left: -20%;
   }
@@ -640,7 +708,7 @@ input:focus {
   50% {
     left: -20%;
   }
-  
+
   100% {
     left: 110%;
   }
@@ -782,5 +850,44 @@ span {
   color: rgb(222, 222, 222);
   text-align: right;
   font-size: 0.9em;
+}
+.alert {
+  display: inline-block;
+  background-color: indianred;
+  color: white;
+  border-radius: 50px;
+  margin-top: 20px;
+  padding: 7px;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-size: 0.9em;
+  position: relative;
+}
+.alert::before {
+  content: "";
+  width: 0;
+height: 0;
+border-style: solid;
+border-width: 0 10px 14px 10px;
+border-color: transparent transparent indianred transparent;
+position: absolute;
+top: -10px
+
+}
+.alert-in-enter-active {
+  animation: slide-down 0.4s ease;
+}
+.alert-in-leave-active {
+  animation: slide-down 0.4s reverse ease;
+}
+@keyframes slide-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 </style>
