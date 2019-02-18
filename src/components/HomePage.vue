@@ -130,7 +130,7 @@
                 <div
                   class="columns margin0 is-mobile"
                   v-for="(data,index) in projects"
-                  :key="index+0"
+                  :key="index"
                 >
                   <div class="column projectrow text-right">
                     <span class="tag is-rounded" v-bind:class="data.tagclass">{{data.tag}}</span>
@@ -142,7 +142,7 @@
               </div>
             </div>
             <transition name="fly-in" mode="out-in">
-              <div class="centered" :key="project">
+              <div class="centered" :key="project.projectname">
                 <div class="columns is-desktop">
                   <div class="column">
                     <div class="projectSliderBox">
@@ -150,9 +150,9 @@
                         <vue-displacement-slideshow
                           :images="images"
                           :displacement="require('../assets/images/projects/distortion.jpg')"
-                          :intensity.number="0.2"
-                          :speedIn.number="1.4"
-                          :speedOut.number="1.4"
+                          :intensity="0.2"
+                          :speedIn="1.4"
+                          :speedOut="1.4"
                           ease="Expo.easeInOut"
                           ref="slideshow"
                         ></vue-displacement-slideshow>
