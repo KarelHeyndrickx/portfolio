@@ -6,7 +6,7 @@
           <!-- left side -->
           <div class="level-left">
             <div class="level-item">
-              <img src="../assets/images/logo.png" alt="My logo" class="logo">
+              <img src="../assets/images/other/logo.png" alt="My logo" class="logo">
             </div>
           </div>
           <!-- right side -->
@@ -55,10 +55,10 @@
         <p>Mijn naam is Karel Heyndrickx, ik ben een student in de Informatica - Programmeren en een zeer enthousiaste web- en applicatiedesigner.</p>
         <p>Om meer te zien over mijn ervaring klik hier.</p>
         <a
-                class="button introButton"
-                v-smooth-scroll="{ duration: 1000, offset: 0}"
-                href="#projects"
-              >Zie projecten</a>
+          class="button introButton"
+          v-smooth-scroll="{ duration: 1000, offset: 0}"
+          href="#projects"
+        >Zie projecten</a>
       </div>
       <img id="imgSnowscape" src="../assets/images/elements/snowscape.png" alt="photo of snowscape">
     </div>
@@ -74,19 +74,19 @@
               <div class="window shadow">
                 <i class="fa fa-code"></i>
                 <h5 class="title is-5">Front-end Development</h5>
-                <p>Er is geen beter gevoel als iteratief en constructief functionaliteiten te programmeren</p>
+                <p>Er is geen beter gevoel als iteratief en constructief functionaliteiten tot leven te laten komen.</p>
                 <p>
                   <strong>Programmeertalen:</strong>
                 </p>
                 <p>Angular, Vue.js, Html, Css, Js, Sass</p>
+                <small>C# .NET, Java, Java Spring</small>
                 <p>
                   <strong>Development tools:</strong>
                 </p>
                 <ul>
-                  <li>C# .NET</li>
-                  <li>Bootstrap</li>
-                  <li>Material</li>
-                  <li>Bulma</li>
+                  <li>Bootstrap, Material, Bulma/li>
+                  <li>Anime.js, Bounce.js, Animate.css</li>
+                  <li>...<li>
                   <li>GitHub</li>
                 </ul>
               </div>
@@ -215,7 +215,7 @@
           class="subtitle is-4 has-text-centered white margin-top-20"
         >Of stuur mij direct een mailtje!</h5>
       </div>
-      <form @submit.prevent="sendEmail" class="contactform">
+      <form @submit.prevent="sendMail" class="contactform">
         <div class="columns">
           <div class="column field">
             <label class="label">Naam</label>
@@ -223,15 +223,15 @@
               <input
                 name="name"
                 v-model="emailForm.name"
-                v-validate="'required|alpha'"
+                v-validate="'required|min:2'"
                 :class="{'input': true, 'is-danger': errors.has('name') }"
                 type="text"
                 data-vv-delay="1000"
               >
               <transition name="alert-in">
-              <div class="alert" v-if="errors.has('name')">
-                <i class="fa fa-exclamation-triangle"></i> Gelieve een naam in te vullen!
-              </div>
+                <div class="alert" v-if="errors.has('name')">
+                  <i class="fa fa-exclamation-triangle"></i> Gelieve een naam in te vullen!
+                </div>
               </transition>
             </div>
           </div>
@@ -246,11 +246,11 @@
                 type="text"
                 data-vv-delay="1000"
               >
-               <transition name="alert-in">
-              <div class="alert" v-if="errors.has('email')">
-                <i class="fa fa-exclamation-triangle"></i> Gelieve een geldig e-mailadres in te geven.
-              </div>
-               </transition>
+              <transition name="alert-in">
+                <div class="alert" v-if="errors.has('email')">
+                  <i class="fa fa-exclamation-triangle"></i> Gelieve een geldig e-mailadres in te geven.
+                </div>
+              </transition>
             </div>
           </div>
         </div>
@@ -262,16 +262,16 @@
               class="textarea"
               name="message"
               v-model="emailForm.message"
-              v-validate="'required|alpha|min:5'"
+              v-validate="'required|min:5'"
               :class="{'input': true, 'is-danger': errors.has('message') }"
               data-vv-delay="1000"
             ></textarea>
-             <transition name="alert-in">
-            <div class="alert" v-if="errors.has('message')">
-              <i class="fa fa-exclamation-triangle"></i>
-              Gelieve een bericht langer als 5 karakters in te geven.
-            </div>
-             </transition>
+            <transition name="alert-in">
+              <div class="alert" v-if="errors.has('message')">
+                <i class="fa fa-exclamation-triangle"></i>
+                Gelieve een bericht langer als 5 karakters in te geven.
+              </div>
+            </transition>
           </div>
         </div>
         <div class="field">
@@ -280,6 +280,22 @@
           </div>
         </div>
       </form>
+      <transition name="alert-in">
+        <div v-if="isSending">
+          <div id="box"></div>
+          <div id="loadershadow"></div>
+          <h5
+            class="subtitle is-4 has-text-centered white margin-top-20"
+          >De mail wordt verstuurd ...</h5>
+        </div>
+      </transition>
+      <transition name="alert-in">
+        <div v-if="sentAlert">
+           <h5
+            class="subtitle is-4 has-text-centered white margin-top-20"
+          >{{this.sendSucceeded}}</h5>
+        </div>
+      </transition>
     </div>
     <div class="copyright">
       <p>
@@ -336,12 +352,33 @@ export default {
           tagclass: "is-link"
         },
         {
+          projectname: "Beurs Webapplicatie",
+          tag: "Angular",
+          description:
+            "Deze beurs webapplicatie werd gemaakt als schoolproject. Hierbij konden er exposanten toegevoegd worden aan een databank alsook hun positie waar ze zouden staan op een plattegrond. En quizvragen waarvan vervolgens scholen die de beurs kwamen bezoeken deze konden beantwoorden via een app. Deze app is zichtbaar in het project 'Beurs app'",
+          tagclass: "is-danger"
+        },
+        {
+          projectname: "Beurs App",
+          tag: "Android (Kotlin)",
+          description:
+            "Deze beurs app werd gemaakt als schoolproject. Hierbij konden leerlingen van scholen een quiz spelen met vragen over de exposanten van de beurs. Vervolgens konden de verantwoordelijke leerkrachten hun antwoorden zien op de webapplcatie. Die webapplicatie is zichtbaar in het project 'Beurs webapplicatie' ",
+          tagclass: "is-success"
+        },
+        {
           projectname: "Oude portfolio",
           tag: "HTML, CSS, JS ",
           description:
             "De portfolio die u nu aan het lezen bent is reeds mijn 2de portfolio. Aangezien ik in mijn eerste portfolio geen consistente design-regels had maar eerder hier en daar mijn creatieve vaardigheden wou uiten, was het dus tijd voor een nieuwe. ",
           onlineLink: "https://users.hogent.be/karelheyndrickx/eportfolio/",
           onlineLinkShort: "Website",
+          tagclass: "is-info"
+        },
+        {
+          projectname: "Legendary (chocoladelounge)",
+          tag: "HTML, CSS, JS ",
+          description:
+            "Legendary Gouda is een chocoladebar waar u kan genieten van pralines van Belgische topkwaliteit, koffie en jazz/blues. Legendary Gouda is een winkeltje gerund door mijn zus. Om haar op weg te krijgen in een ver afgelegen stadje heb ik haar een moderne en uitnodigende website gemaakt.",
           tagclass: "is-info"
         }
       ],
@@ -359,7 +396,10 @@ export default {
         name: "",
         email: "",
         message: ""
-      }
+      },
+      isSending: false,
+      sentAlert: false,
+      sendSucceeded: ""
     };
   },
   components: {
@@ -373,12 +413,48 @@ export default {
       //We loop through all our images by calling the 'next' method of our component every 2 seconds
       setInterval(() => {
         this.$refs.slideshow.next();
-      }, 3000);
+      }, 4000);
     },
-    sendMail() {
+    sendMail: function(event) {
+
+      this.sentAlert = false;
+
       this.$validator.validateAll().then(result => {
         if (result) {
           //Send mail
+          emailjs.init("user_W4OrHFWZ05Pt051SLu1xh");
+          var template_params = {
+            from_name: this.emailForm.name,
+            from_email: this.emailForm.email,
+            message_html: this.emailForm.message
+          };
+
+          this.emailForm = {
+            name: "",
+            email: "",
+            message: ""
+          };
+
+          //After resetting the form the validators get reset as well so no inputs show an error message from the start.
+          this.$validator.reset();
+
+          this.isSending = true;
+
+          var service_id = "default_service";
+          var template_id = "template_SRjA5niS";
+
+          emailjs.send(service_id, template_id, template_params).then(
+            response => {
+              this.isSending = false;
+              this.sendSucceeded = "Email werd goed verzonden";
+              this.sentAlert = true
+            },
+            error => {
+              this.isSending = false;
+              this.sendSucceeded = "Er is een fout opgetreden bij het verzenden van de mail.";
+              this.sentAlert = true
+            }
+          );
         } else {
           //Don't send mail
         }
@@ -414,7 +490,6 @@ export default {
         case "Workmanager":
           return [
             require("../assets/images/projects/workmanager/workmanager.jpg"),
-            require("../assets/images/projects/workmanager/boss.png"),
             require("../assets/images/projects/workmanager/employee.png")
           ];
           break;
@@ -425,6 +500,30 @@ export default {
             require("../assets/images/projects/oldportfolio/me.jpg"),
             require("../assets/images/projects/oldportfolio/projects.png")
           ];
+          break;
+        case "Beurs Webapplicatie":
+         return [
+            require("../assets/images/projects/revaWeb/addExhib.jpg"),
+            require("../assets/images/projects/revaWeb/localiseExhib.jpg"),
+            require("../assets/images/projects/revaWeb/groups.jpg"),
+            require("../assets/images/projects/revaWeb/groupAnswers.jpg")
+          ];
+          break;
+           case "Beurs App":
+         return [
+            require("../assets/images/projects/revaAndroid/mockups1.jpg"),
+            require("../assets/images/projects/revaAndroid/mockups2.jpg")
+          ];
+          break;
+           case "Legendary (chocoladelounge)":
+         return [
+            require("../assets/images/projects/legendary/startpage.jpg"),
+            require("../assets/images/projects/legendary/openinghours.jpg"),
+            require("../assets/images/projects/legendary/products.jpg"),
+            require("../assets/images/projects/legendary/contact.jpg")
+          ];
+          break;
+
         default:
           return [
             require("../assets/images/projects/questionmanager/questionmanager.png"),
@@ -435,6 +534,14 @@ export default {
   },
   mounted() {
     this.init();
+    this.$nextTick(function() {
+      let emailJSscript = document.createElement("script");
+      emailJSscript.setAttribute(
+        "src",
+        "https://cdn.emailjs.com/sdk/2.3.2/email.min.js"
+      );
+      document.head.appendChild(emailJSscript);
+    });
   }
 };
 </script>
@@ -509,11 +616,11 @@ nav {
 .introductiontext .title {
   color: white !important;
 }
-.introductiontext p{
+.introductiontext p {
   margin-bottom: 30px !important;
 }
-.introButton{
-   color: white !important ;
+.introButton {
+  color: white !important ;
   border: none !important;
   background-color: #4ca179 !important;
   transition: 0.4s;
@@ -726,7 +833,12 @@ span {
 .fly-in-leave-active {
   animation: slide-down 0.4s reverse ease;
 }
-
+.loadingAnim-enter-active {
+  animation: slide-down 0.4s ease;
+}
+.loadingAnim-leave-active {
+  animation: slide-down 0.4s ease reverse;
+}
 @keyframes slide-down {
   0% {
     opacity: 0;
@@ -866,13 +978,12 @@ span {
 .alert::before {
   content: "";
   width: 0;
-height: 0;
-border-style: solid;
-border-width: 0 10px 14px 10px;
-border-color: transparent transparent indianred transparent;
-position: absolute;
-top: -10px
-
+  height: 0;
+  border-style: solid;
+  border-width: 0 10px 14px 10px;
+  border-color: transparent transparent indianred transparent;
+  position: absolute;
+  top: -10px;
 }
 .alert-in-enter-active {
   animation: slide-down 0.4s ease;
@@ -889,5 +1000,60 @@ top: -10px
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+@keyframes loader {
+  0% {
+    left: -100px;
+  }
+  100% {
+    left: 110%;
+  }
+}
+#box {
+  width: 50px;
+  height: 50px;
+  background: #fff;
+  animation: jellyAnimation 0.5s linear infinite;
+  border-radius: 3px;
+  margin: 0 auto;
+}
+@keyframes jellyAnimation {
+  17% {
+    border-bottom-right-radius: 3px;
+  }
+  25% {
+    transform: translateY(9px) rotate(22.5deg);
+  }
+  50% {
+    transform: translateY(18px) scale(1, 0.9) rotate(45deg);
+    border-bottom-right-radius: 40px;
+  }
+  75% {
+    transform: translateY(9px) rotate(67.5deg);
+  }
+  100% {
+    transform: translateY(0) rotate(90deg);
+  }
+}
+#loadershadow {
+  width: 50px;
+  height: 5px;
+  background: #000;
+  opacity: 0.1;
+  border-radius: 50%;
+  animation: shadow 0.5s linear infinite;
+  margin: 0 auto;
+  margin-top: 12px;
+}
+@keyframes shadow {
+  50% {
+    transform: scale(1.2, 1);
+  }
+}
+.profilePic{
+  max-width: 150px;
+  border-radius: 50%;
+  border: 2px solid white;
 }
 </style>
