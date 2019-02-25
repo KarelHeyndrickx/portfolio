@@ -52,7 +52,7 @@
     <div id="introduction">
       <div class="introductiontext">
         <h3 class="title">Hi!</h3>
-        <p>Mijn naam is Karel Heyndrickx, ik ben een student in de Informatica - Programmeren en een zeer enthousiaste web- en applicatiedesigner.</p>
+        <p>Mijn naam is Karel Heyndrickx, ik ben een student Informatica - Programmerenen een zeer enthousiaste web- en applicatiedesigner.</p>
         <p>Om meer te zien over mijn ervaring klik hier.</p>
         <a
           class="button introButton"
@@ -124,14 +124,24 @@
         <div class="container">
           <h3 class="title is-3">Mijn projecten</h3>
           <h5 class="subtitle">en ...</h5>
+          <div class="projectFilter">
+            <p>Filter op programmeertaal:</p>
+            <span class="tag is-rounded is-warning shadowhover is-medium" v-on:click="filterLanguage('Swift')">Swift <i class="fa fa-check-circle checkedIcon" v-if="chosenLanguage=='Swift'"></i></span>
+            <span class="tag is-rounded is-primary shadowhover is-medium"  v-on:click="filterLanguage('Vue')">Vue <i class="fa fa-check-circle checkedIcon" v-if="chosenLanguage=='Vue'"></i></span>
+            <span class="tag is-rounded is-danger shadowhover is-medium"  v-on:click="filterLanguage('Angular')">Angular <i class="fa fa-check-circle checkedIcon" v-if="chosenLanguage=='Angular'"></i></span>
+            <span class="tag is-rounded is-link shadowhover is-medium"  v-on:click="filterLanguage('C# .NET')">C# .NET <i class="fa fa-check-circle checkedIcon" v-if="chosenLanguage=='C# .NET'"></i></span>
+            <span class="tag is-rounded is-info shadowhover is-medium"  v-on:click="filterLanguage('HTML, CSS, JS')">HTML, CSS, JS <i class="fa fa-check-circle checkedIcon" v-if="chosenLanguage=='HTML, CSS, JS'"></i> </span>
+            <span class="tag is-rounded is-success shadowhover is-medium"  v-on:click="filterLanguage('Android (Kotlin)')">Android (Kotlin) <i class="fa fa-check-circle checkedIcon" v-if="chosenLanguage=='Android (Kotlin)'"></i></span>
+            <span class="tag is-rounded is-white shadowhover is-medium" v-on:click="filterLanguage('All')">Allemaal <i class="fa fa-check-circle checkedIcon" v-if="chosenLanguage=='All'"></i></span>
+          </div>
           <div id="projects">
             <div class="projectList">
               <div id="centeredProjectList">
+                <transition-group name="list" enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown" mode="out-in">
                 <div
                   class="columns margin0 is-mobile"
-                  v-for="(data,index) in projects"
-                  :key="index"
-                >
+                  v-for="(data,index) in filteredProjects"
+                  :key="data.projectname">
                   <div class="column projectrow text-right">
                     <span class="tag is-rounded" v-bind:class="data.tagclass">{{data.tag}}</span>
                   </div>
@@ -139,6 +149,7 @@
                     <a v-on:click="choseProject(index)">{{data.projectname}}</a>
                   </div>
                 </div>
+                </transition-group>
               </div>
             </div>
             <transition name="fly-in" mode="out-in">
@@ -367,7 +378,7 @@ export default {
         },
         {
           projectname: "Oude portfolio",
-          tag: "HTML, CSS, JS ",
+          tag: "HTML, CSS, JS",
           description:
             "De portfolio die u nu aan het lezen bent is reeds mijn 2de portfolio. Aangezien ik in mijn eerste portfolio geen consistente design-regels had maar eerder hier en daar mijn creatieve vaardigheden wou uiten, was het dus tijd voor een nieuwe. ",
           onlineLink: "https://users.hogent.be/karelheyndrickx/eportfolio/",
@@ -376,7 +387,7 @@ export default {
         },
         {
           projectname: "Legendary (chocoladelounge)",
-          tag: "HTML, CSS, JS ",
+          tag: "HTML, CSS, JS",
           description:
             "Legendary Gouda is een chocoladebar waar u kan genieten van pralines van Belgische topkwaliteit, koffie en jazz/blues. Legendary Gouda is een winkeltje gerund door mijn zus. Om haar op weg te krijgen in een ver afgelegen stadje heb ik haar een moderne en uitnodigende website gemaakt.",
           tagclass: "is-info"
@@ -399,7 +410,8 @@ export default {
       },
       isSending: false,
       sentAlert: false,
-      sendSucceeded: ""
+      sendSucceeded: "",
+      chosenLanguage : "All"
     };
   },
   components: {
@@ -415,6 +427,10 @@ export default {
         this.$refs.slideshow.next();
       }, 4000);
     },
+    filterLanguage(language){
+      this.chosenLanguage = language;
+    },
+    
     sendMail: function(event) {
 
       this.sentAlert = false;
@@ -530,6 +546,16 @@ export default {
             require("../assets/images/projects/questionmanager/questionlist.png")
           ];
       }
+    },
+    filteredProjects(){
+      if (this.chosenLanguage == "All"){
+        return this.projects
+      } else {
+          return this.projects.filter(project => {
+              return project.tag == this.chosenLanguage
+        })
+      }
+       
     }
   },
   mounted() {
@@ -1055,5 +1081,14 @@ span {
   max-width: 150px;
   border-radius: 50%;
   border: 2px solid white;
+}
+.projectFilter {
+  margin: 40px 0px;
+}
+.projectFilter{
+  margin: 10px !important;
+}
+.checkedIcon{
+  margin-left:5px;
 }
 </style>
