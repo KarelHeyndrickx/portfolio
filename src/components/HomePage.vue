@@ -84,7 +84,7 @@
                   <strong>Development tools:</strong>
                 </p>
                 <ul>
-                  <li>Bootstrap, Material, Bulma/li>
+                  <li>Bootstrap, Material, Bulma</li>
                   <li>Anime.js, Bounce.js, Animate.css</li>
                   <li>...<li>
                   <li>GitHub</li>
