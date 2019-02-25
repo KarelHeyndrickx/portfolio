@@ -137,16 +137,16 @@
           <div id="projects">
             <div class="projectList">
               <div id="centeredProjectList">
-                <transition-group name="list" enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown" mode="out-in">
+                <transition-group name="list" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut" mode="out-in">
                 <div
                   class="columns margin0 is-mobile"
-                  v-for="(data,index) in filteredProjects"
+                  v-for="(data) in filteredProjects"
                   :key="data.projectname">
                   <div class="column projectrow text-right">
                     <span class="tag is-rounded" v-bind:class="data.tagclass">{{data.tag}}</span>
                   </div>
                   <div class="column projectrow text-left projectrowname">
-                    <a v-on:click="choseProject(index)">{{data.projectname}}</a>
+                    <a v-on:click="chooseProject(data.projectname)">{{data.projectname}}</a>
                   </div>
                 </div>
                 </transition-group>
@@ -326,6 +326,15 @@ export default {
     return {
       projects: [
         {
+          projectname: "Breakout",
+          tag: "C# .NET",
+          description:
+            "Breakout is een quiz ontworpen voor scholen die op een speelse manier leerlingen willen kennis laten opdoen. Deze webapplicatie is het tweede deel van een voltallig geheel en bevat enkel het spelen van de quiz voor de deelnemende teams en het beheren van de teams (als leerkracht). ",
+          youtubeLink: "https://www.youtube.com/watch?v=CEzhR40caMI",
+          youtubeLinkShort: "Bekijk de werking & design",
+          tagclass: "is-link"
+        },
+        {
           projectname: "RijQuiz",
           description:
             "De RijQuiz app is een app waar er een quiz word gepresenteerd over de wegcode in België. Het gebruikt vragen die afgehaald worden van een live server. Aangezien de wetgeving in België heel soms verandert, kunnen deze vragen dus soms geüpdatet worden en is het daarvoor nodig dat de app zijn vragenlijst update. De documentatie over deze live server kan gevonden worden in de github repository RijQuizBackend. Te vinden via de onderstaande link",
@@ -345,28 +354,19 @@ export default {
           tagclass: "is-primary"
         },
         {
+          projectname: "Beurs Webapplicatie",
+          tag: "Angular",
+          description:
+            "Deze beurs webapplicatie werd gemaakt als schoolproject. Hierbij konden er exposanten toegevoegd worden aan een databank alsook hun positie waar ze zouden staan op een plattegrond. En quizvragen waarvan vervolgens scholen die de beurs kwamen bezoeken deze konden beantwoorden via een app. Deze app is zichtbaar in het project 'Beurs app'",
+          tagclass: "is-danger"
+        },
+        {
           projectname: "Workmanager",
           tag: "Angular",
           description:
             "Workmanager is een project gemaakt in Angular. In deze applicatie was er een relatie tussen werkgevers en werknemers waarbij werkgevers jobs oftwel evenementen konden publiceren. Vervolgens konden de werknemers zich hiervoor inschrijven",
           onlineLink: "http://workmanager-frontend.herokuapp.com/",
           onlineLinkShort: "Website",
-          tagclass: "is-danger"
-        },
-        {
-          projectname: "Breakout",
-          tag: "C# .NET",
-          description:
-            "Breakout is een quiz ontworpen voor scholen die op een speelse manier leerlingen willen kennis laten opdoen. Deze webapplicatie is het tweede deel van een voltallig geheel en bevat enkel het spelen van de quiz voor de deelnemende teams en het beheren van de teams (als leerkracht). ",
-          youtubeLink: "https://www.youtube.com/watch?v=CEzhR40caMI",
-          youtubeLinkShort: "Bekijk de werking & design",
-          tagclass: "is-link"
-        },
-        {
-          projectname: "Beurs Webapplicatie",
-          tag: "Angular",
-          description:
-            "Deze beurs webapplicatie werd gemaakt als schoolproject. Hierbij konden er exposanten toegevoegd worden aan een databank alsook hun positie waar ze zouden staan op een plattegrond. En quizvragen waarvan vervolgens scholen die de beurs kwamen bezoeken deze konden beantwoorden via een app. Deze app is zichtbaar in het project 'Beurs app'",
           tagclass: "is-danger"
         },
         {
@@ -394,14 +394,13 @@ export default {
         }
       ],
       project: {
-        projectname: "RijQuiz Questions Manager",
-        description:
-          "De Rijquiz Questions Manager is een webapplicatie die nauw samenwerkt met de RijQuiz app. Deze webapplicatie dient om de vragen die gevraagd kunnen worden tijdens de quiz aan te maken en te verwijderen. Ik heb dit projectje gemaakt als crash course met Vue.",
-        tag: "Vue",
-        githubLink:
-          "https://github.com/KarelHeyndrickx/RijQuiz-Questions-manager",
-        githubLinkShort: "Github",
-        tagclass: "is-primary"
+       projectname: "Breakout",
+          tag: "C# .NET",
+          description:
+            "Breakout is een quiz ontworpen voor scholen die op een speelse manier leerlingen willen kennis laten opdoen. Deze webapplicatie is het tweede deel van een voltallig geheel en bevat enkel het spelen van de quiz voor de deelnemende teams en het beheren van de teams (als leerkracht). ",
+          youtubeLink: "https://www.youtube.com/watch?v=CEzhR40caMI",
+          youtubeLinkShort: "Bekijk de werking & design",
+          tagclass: "is-link"
       },
       emailForm: {
         name: "",
@@ -418,8 +417,10 @@ export default {
     VueDisplacementSlideshow
   },
   methods: {
-    choseProject(id) {
-      this.project = this.projects[id];
+    chooseProject(name) {
+      this.project = this.projects.find(project => {
+        return project.projectname == name;
+      })       
     },
     init() {
       //We loop through all our images by calling the 'next' method of our component every 2 seconds
@@ -429,6 +430,7 @@ export default {
     },
     filterLanguage(language){
       this.chosenLanguage = language;
+      this.chooseProject(this.filteredProjects[0].projectname);
     },
     
     sendMail: function(event) {
@@ -894,7 +896,6 @@ span {
   width: 50%;
   margin: 0px 0px 50px -15%;
   margin-left: 15%;
-  overflow-y: scroll;
 }
 .projectSliderBox {
   padding: 30px;
