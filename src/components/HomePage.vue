@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home" v-bind:class="{darken: imageSliderHover}">
     <section class="hero is-medium">
       <div class="hero-head">
         <nav class="level is-mobile">
@@ -52,7 +52,7 @@
     <div id="introduction">
       <div class="introductiontext">
         <h3 class="title">Hi!</h3>
-        <p>Mijn naam is Karel Heyndrickx, ik ben een student Informatica - Programmerenen een zeer enthousiaste web- en applicatiedesigner.</p>
+        <p>Mijn naam is Karel Heyndrickx, ik ben een student in de Informatica - Programmeren en een zeer enthousiaste web- en applicatiedesigner.</p>
         <p>Om meer te zien over mijn ervaring klik hier.</p>
         <a
           class="button introButton"
@@ -121,41 +121,27 @@
     </div>
     <section id="projects" class="hero is-medium is-bold has-text-centered">
       <div class="hero-body">
-        <div class="container">
+        <div class="projectcontainer">
           <h3 class="title is-3">Mijn projecten</h3>
           <h5 class="subtitle">en ...</h5>
-          <div class="projectFilter">
-            <p>Filter op programmeertaal:</p>
-            <span class="tag is-rounded is-warning shadowhover is-medium" v-on:click="filterLanguage('Swift')">Swift <i class="fa fa-check-circle checkedIcon" v-if="chosenLanguage=='Swift'"></i></span>
-            <span class="tag is-rounded is-primary shadowhover is-medium"  v-on:click="filterLanguage('Vue')">Vue <i class="fa fa-check-circle checkedIcon" v-if="chosenLanguage=='Vue'"></i></span>
-            <span class="tag is-rounded is-danger shadowhover is-medium"  v-on:click="filterLanguage('Angular')">Angular <i class="fa fa-check-circle checkedIcon" v-if="chosenLanguage=='Angular'"></i></span>
-            <span class="tag is-rounded is-link shadowhover is-medium"  v-on:click="filterLanguage('C# .NET')">C# .NET <i class="fa fa-check-circle checkedIcon" v-if="chosenLanguage=='C# .NET'"></i></span>
-            <span class="tag is-rounded is-info shadowhover is-medium"  v-on:click="filterLanguage('HTML, CSS, JS')">HTML, CSS, JS <i class="fa fa-check-circle checkedIcon" v-if="chosenLanguage=='HTML, CSS, JS'"></i> </span>
-            <span class="tag is-rounded is-success shadowhover is-medium"  v-on:click="filterLanguage('Android (Kotlin)')">Android (Kotlin) <i class="fa fa-check-circle checkedIcon" v-if="chosenLanguage=='Android (Kotlin)'"></i></span>
-            <span class="tag is-rounded is-white shadowhover is-medium" v-on:click="filterLanguage('All')">Allemaal <i class="fa fa-check-circle checkedIcon" v-if="chosenLanguage=='All'"></i></span>
-          </div>
           <div id="projects">
             <div class="projectList">
               <div id="centeredProjectList">
-                <transition-group name="list" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut" mode="out-in">
                 <div
-                  class="columns margin0 is-mobile"
-                  v-for="(data) in filteredProjects"
-                  :key="data.projectname">
-                  <div class="column projectrow text-right">
-                    <span class="tag is-rounded" v-bind:class="data.tagclass">{{data.tag}}</span>
-                  </div>
-                  <div class="column projectrow text-left projectrowname">
+                  class="projectrow text-left"
+                  v-for="(data) in projects"
+                  :key="data.projectname"
+                >
+                                        <span class="tag is-rounded" v-bind:class="data.tagclass">{{data.tag}}</span>
                     <a v-on:click="chooseProject(data.projectname)">{{data.projectname}}</a>
-                  </div>
                 </div>
-                </transition-group>
               </div>
             </div>
             <transition name="fly-in" mode="out-in">
               <div class="centered" :key="project.projectname">
                 <div class="columns is-desktop">
-                  <div class="column">
+                  <div class="column is-7 slidercolumn">
+                    <div class="projectSliderGrayContainer">
                     <div class="projectSliderBox">
                       <div class="shadow projectSlider">
                         <vue-displacement-slideshow
@@ -169,8 +155,9 @@
                         ></vue-displacement-slideshow>
                       </div>
                     </div>
+                    </div>
                   </div>
-                  <div class="column text-left">
+                  <div class="column text-left is-5 slidercolumn">
                     <h3 class="subtitle is-3">{{project.projectname}}</h3>
                     <p>{{project.description}}</p>
 
@@ -378,7 +365,7 @@ export default {
         },
         {
           projectname: "Oude portfolio",
-          tag: "HTML, CSS, JS",
+          tag: "HTML, CSS, JS ",
           description:
             "De portfolio die u nu aan het lezen bent is reeds mijn 2de portfolio. Aangezien ik in mijn eerste portfolio geen consistente design-regels had maar eerder hier en daar mijn creatieve vaardigheden wou uiten, was het dus tijd voor een nieuwe. ",
           onlineLink: "https://users.hogent.be/karelheyndrickx/eportfolio/",
@@ -387,7 +374,7 @@ export default {
         },
         {
           projectname: "Legendary (chocoladelounge)",
-          tag: "HTML, CSS, JS",
+          tag: "HTML, CSS, JS ",
           description:
             "Legendary Gouda is een chocoladebar waar u kan genieten van pralines van Belgische topkwaliteit, koffie en jazz/blues. Legendary Gouda is een winkeltje gerund door mijn zus. Om haar op weg te krijgen in een ver afgelegen stadje heb ik haar een moderne en uitnodigende website gemaakt.",
           tagclass: "is-info"
@@ -410,7 +397,7 @@ export default {
       isSending: false,
       sentAlert: false,
       sendSucceeded: "",
-      chosenLanguage : "All"
+      imageSliderHover: false
     };
   },
   components: {
@@ -428,11 +415,6 @@ export default {
         this.$refs.slideshow.next();
       }, 4000);
     },
-    filterLanguage(language){
-      this.chosenLanguage = language;
-      this.chooseProject(this.filteredProjects[0].projectname);
-    },
-    
     sendMail: function(event) {
 
       this.sentAlert = false;
@@ -548,16 +530,6 @@ export default {
             require("../assets/images/projects/questionmanager/questionlist.png")
           ];
       }
-    },
-    filteredProjects(){
-      if (this.chosenLanguage == "All"){
-        return this.projects
-      } else {
-          return this.projects.filter(project => {
-              return project.tag == this.chosenLanguage
-        })
-      }
-       
     }
   },
   mounted() {
@@ -885,6 +857,7 @@ span {
 }
 .projectrow {
   padding: 0.5rem !important;
+  display: inline-block;
 }
 .projectList {
   position: relative;
@@ -893,15 +866,21 @@ span {
   font-weight: bold;
 }
 #centeredProjectList {
-  width: 50%;
-  margin: 0px 0px 50px -15%;
-  margin-left: 15%;
+  width: 70%;
+  margin: 60px auto;
 }
-.projectSliderBox {
+.projectSliderGrayContainer{
   padding: 30px;
   background-color: #e8e7e7;
   border-radius: 5px;
   margin-bottom: 40px;
+  padding-bottom: 0px;
+}
+.projectSliderBox {
+  width: 100%;
+    position: relative;
+    padding-bottom: 70%;
+    overflow: hidden;
 }
 .projectSliderBox .projectSlider {
   margin-bottom: -50px !important;
@@ -909,17 +888,25 @@ span {
   background: url("../assets/images/projects/loadingImage.png");
   background-size: cover;
   background-position: center;
-  height: 400px;
+  position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
-.projectrowname {
-  border-bottom: 1px solid gainsboro;
-}
+
 @media only screen and (max-width: 700px) {
   #centeredProjectList {
     width: 100%;
     margin-left: -5%;
   }
 }
+@media only screen and (max-width: 1087px){
+  .slidercolumn {
+    width: 100% !important;    
+  }
+}
+
 .white {
   color: white !important;
 }
@@ -1083,13 +1070,18 @@ span {
   border-radius: 50%;
   border: 2px solid white;
 }
-.projectFilter {
-  margin: 40px 0px;
+.projectcontainer{
+  width: 80%;
+  margin: 0 auto;
 }
-.projectFilter{
-  margin: 10px !important;
-}
-.checkedIcon{
-  margin-left:5px;
+.projectSlider canvas::before{
+  content: '';
+  background-color: gray;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  padding: 40px;
+  position: absolute;
 }
 </style>
