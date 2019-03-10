@@ -34,7 +34,7 @@
           </p>
         </div>
 
-        <div class="container has-text-centered">
+        <div data-aos="zoom-in" class="container has-text-centered">
           <h1 class="title is-1">Hallo, ik ben Karel!</h1>
           <p class="subtitle">
             een Student met interesse in
@@ -51,8 +51,9 @@
 
     <div id="introduction">
       <div class="introductiontext">
+        <img src="../assets/images/other/ppcirbgwhite.png" class="profilePic" alt="picture of me">
         <h3 class="title">Hi!</h3>
-        <p>Mijn naam is Karel Heyndrickx, ik ben een student in de Informatica - Programmeren en een zeer enthousiaste web- en applicatiedesigner.</p>
+        <p>Mijn naam is Karel Heyndrickx, ik ben een student Toegepaste Informatica - Programmeren en een zeer enthousiaste web- en applicatiedesigner.</p>
         <p>Om meer te zien over mijn ervaring klik hier.</p>
         <a
           class="button introButton"
@@ -70,7 +71,7 @@
           <h5 class="subtitle">en interesses</h5>
 
           <div class="level">
-            <div class="level-item has-text-centered">
+            <div class="level-item has-text-centered" data-aos="fade-right" data-aos-offset="200"  data-aos-duration="1000">
               <div class="window shadow">
                 <i class="fa fa-code"></i>
                 <h5 class="title is-5">Front-end Development</h5>
@@ -85,13 +86,14 @@
                 </p>
                 <ul>
                   <li>Bootstrap, Material, Bulma</li>
-                  <li>Anime.js, Bounce.js, Animate.css</li>
-                  <li>...<li>
-                  <li>GitHub</li>
+                  <li>Anime.js, Bounce.js, Animate.css, AOS</li>
+                  <li>...</li>
+                  <li></li>
+                  <li>Git</li>
                 </ul>
               </div>
             </div>
-            <div class="level-item has-text-centered">
+            <div class="level-item has-text-centered " data-aos="fade-left" data-aos-offset="200" data-aos-duration="1000">
               <div class="window shadow">
                 <i class="fa fa-paint-brush"></i>
                 <h5 class="title is-5">Design</h5>
@@ -99,7 +101,7 @@
                 <p>
                   <strong>Design interesses:</strong>
                 </p>
-                <p>Websites, Mobile Apps, Logo's UX, UI</p>
+                <p>Websites, Mobile Apps, Logo's, UX, UI</p>
                 <p>
                   <strong>Design tools:</strong>
                 </p>
@@ -128,12 +130,12 @@
             <div class="projectList">
               <div id="centeredProjectList">
                 <div
-                  class="projectrow text-left"
+                  class="projectrow"
                   v-for="(data) in projects"
                   :key="data.projectname"
                 >
-                                        <span class="tag is-rounded" v-bind:class="data.tagclass">{{data.tag}}</span>
-                    <a v-on:click="chooseProject(data.projectname)">{{data.projectname}}</a>
+                  <span class="tag is-rounded" v-bind:class="data.tagclass">{{data.tag}}</span>
+                  <a v-on:click="chooseProject(data.projectname)">{{data.projectname}}</a>
                 </div>
               </div>
             </div>
@@ -142,19 +144,19 @@
                 <div class="columns is-desktop">
                   <div class="column is-7 slidercolumn">
                     <div class="projectSliderGrayContainer">
-                    <div class="projectSliderBox">
-                      <div class="shadow projectSlider">
-                        <vue-displacement-slideshow
-                          :images="images"
-                          :displacement="require('../assets/images/projects/distortion.jpg')"
-                          :intensity="0.2"
-                          :speedIn="1.4"
-                          :speedOut="1.4"
-                          ease="Expo.easeInOut"
-                          ref="slideshow"
-                        ></vue-displacement-slideshow>
+                      <div class="projectSliderBox">
+                        <div class="shadow projectSlider">
+                          <vue-displacement-slideshow
+                            :images="images"
+                            :displacement="require('../assets/images/projects/distortion.jpg')"
+                            :intensity="0.2"
+                            :speedIn="1.4"
+                            :speedOut="1.4"
+                            ease="Expo.easeInOut"
+                            ref="slideshow"
+                          ></vue-displacement-slideshow>
+                        </div>
                       </div>
-                    </div>
                     </div>
                   </div>
                   <div class="column text-left is-5 slidercolumn">
@@ -190,7 +192,7 @@
       <img src="../assets/images/elements/landscape.png" alt="photo of landscape">
     </div>
     <div id="contact">
-      <div id="contactWindow" class="window shadow has-text-centered">
+      <div id="contactWindow" class="window shadow has-text-centered" data-aos="fade-up">
         <h4 class="title is-4">
           Hebt u enige
           <strong>vragen</strong>?
@@ -289,9 +291,7 @@
       </transition>
       <transition name="alert-in">
         <div v-if="sentAlert">
-           <h5
-            class="subtitle is-4 has-text-centered white margin-top-20"
-          >{{this.sendSucceeded}}</h5>
+          <h5 class="subtitle is-4 has-text-centered white margin-top-20">{{this.sendSucceeded}}</h5>
         </div>
       </transition>
     </div>
@@ -381,13 +381,13 @@ export default {
         }
       ],
       project: {
-       projectname: "Breakout",
-          tag: "C# .NET",
-          description:
-            "Breakout is een quiz ontworpen voor scholen die op een speelse manier leerlingen willen kennis laten opdoen. Deze webapplicatie is het tweede deel van een voltallig geheel en bevat enkel het spelen van de quiz voor de deelnemende teams en het beheren van de teams (als leerkracht). ",
-          youtubeLink: "https://www.youtube.com/watch?v=CEzhR40caMI",
-          youtubeLinkShort: "Bekijk de werking & design",
-          tagclass: "is-link"
+        projectname: "Breakout",
+        tag: "C# .NET",
+        description:
+          "Breakout is een quiz ontworpen voor scholen die op een speelse manier leerlingen willen kennis laten opdoen. Deze webapplicatie is het tweede deel van een voltallig geheel en bevat enkel het spelen van de quiz voor de deelnemende teams en het beheren van de teams (als leerkracht). ",
+        youtubeLink: "https://www.youtube.com/watch?v=CEzhR40caMI",
+        youtubeLinkShort: "Bekijk de werking & design",
+        tagclass: "is-link"
       },
       emailForm: {
         name: "",
@@ -407,7 +407,7 @@ export default {
     chooseProject(name) {
       this.project = this.projects.find(project => {
         return project.projectname == name;
-      })       
+      });
     },
     init() {
       //We loop through all our images by calling the 'next' method of our component every 2 seconds
@@ -416,7 +416,6 @@ export default {
       }, 4000);
     },
     sendMail: function(event) {
-
       this.sentAlert = false;
 
       this.$validator.validateAll().then(result => {
@@ -447,12 +446,13 @@ export default {
             response => {
               this.isSending = false;
               this.sendSucceeded = "Email werd goed verzonden";
-              this.sentAlert = true
+              this.sentAlert = true;
             },
             error => {
               this.isSending = false;
-              this.sendSucceeded = "Er is een fout opgetreden bij het verzenden van de mail.";
-              this.sentAlert = true
+              this.sendSucceeded =
+                "Er is een fout opgetreden bij het verzenden van de mail.";
+              this.sentAlert = true;
             }
           );
         } else {
@@ -502,21 +502,21 @@ export default {
           ];
           break;
         case "Beurs Webapplicatie":
-         return [
+          return [
             require("../assets/images/projects/revaWeb/addExhib.jpg"),
             require("../assets/images/projects/revaWeb/localiseExhib.jpg"),
             require("../assets/images/projects/revaWeb/groups.jpg"),
             require("../assets/images/projects/revaWeb/groupAnswers.jpg")
           ];
           break;
-           case "Beurs App":
-         return [
+        case "Beurs App":
+          return [
             require("../assets/images/projects/revaAndroid/mockups1.jpg"),
             require("../assets/images/projects/revaAndroid/mockups2.jpg")
           ];
           break;
-           case "Legendary (chocoladelounge)":
-         return [
+        case "Legendary (chocoladelounge)":
+          return [
             require("../assets/images/projects/legendary/startpage.jpg"),
             require("../assets/images/projects/legendary/openinghours.jpg"),
             require("../assets/images/projects/legendary/products.jpg"),
@@ -535,13 +535,13 @@ export default {
   mounted() {
     this.init();
     this.$nextTick(function() {
+
       let emailJSscript = document.createElement("script");
-      emailJSscript.setAttribute(
-        "src",
-        "https://cdn.emailjs.com/sdk/2.3.2/email.min.js"
-      );
-      document.head.appendChild(emailJSscript);
+      emailJSscript.setAttribute("src","https://cdn.emailjs.com/sdk/2.3.2/email.min.js");
+      document.head.appendChild(emailJSscript);      
     });
+
+    
   }
 };
 </script>
@@ -549,6 +549,7 @@ export default {
 <style>
 @import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
 @import "https://cdn.jsdelivr.net/npm/animate.css@3.5.1";
+
 
 h1 {
   margin-bottom: 1.3em !important;
@@ -630,9 +631,7 @@ nav {
   line-height: 0px !important;
 }
 .introButton:hover {
-  background-color: white !important;
-  border-color: white !important;
-  color: #4ca179 !important;
+  background-color: #37795a !important;
 }
 #skills .window * {
   margin: 20px 0px !important;
@@ -722,6 +721,25 @@ textarea {
   cursor: pointer;
   padding: 20px !important;
   line-height: 0px !important;
+    animation: attention 4s ease infinite;
+
+}
+@keyframes attention {
+  9% {
+    transform: none;
+  }
+  12% {
+    transform: scale(1.05);
+  }
+  16% {
+    transform: scale(0.95);
+  }
+  20% {
+    transform: scale(1.03);
+  }
+  24% {
+    transform: scale(1);
+  }
 }
 .contactButton:hover {
   background-color: white !important;
@@ -869,7 +887,7 @@ span {
   width: 70%;
   margin: 60px auto;
 }
-.projectSliderGrayContainer{
+.projectSliderGrayContainer {
   padding: 30px;
   background-color: #e8e7e7;
   border-radius: 5px;
@@ -878,9 +896,9 @@ span {
 }
 .projectSliderBox {
   width: 100%;
-    position: relative;
-    padding-bottom: 70%;
-    overflow: hidden;
+  position: relative;
+  padding-bottom: 70%;
+  overflow: hidden;
 }
 .projectSliderBox .projectSlider {
   margin-bottom: -50px !important;
@@ -889,21 +907,20 @@ span {
   background-size: cover;
   background-position: center;
   position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 @media only screen and (max-width: 700px) {
   #centeredProjectList {
     width: 100%;
-    margin-left: -5%;
   }
 }
-@media only screen and (max-width: 1087px){
+@media only screen and (max-width: 1087px) {
   .slidercolumn {
-    width: 100% !important;    
+    width: 100% !important;
   }
 }
 
@@ -1065,17 +1082,18 @@ span {
     transform: scale(1.2, 1);
   }
 }
-.profilePic{
-  max-width: 150px;
+.profilePic {
   border-radius: 50%;
-  border: 2px solid white;
+  margin-bottom: 40px;
+  width: 100%;
+  max-width: 250px;
 }
-.projectcontainer{
+.projectcontainer {
   width: 80%;
   margin: 0 auto;
 }
-.projectSlider canvas::before{
-  content: '';
+.projectSlider canvas::before {
+  content: "";
   background-color: gray;
   width: 100%;
   height: 100%;
