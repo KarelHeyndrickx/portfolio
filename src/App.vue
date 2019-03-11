@@ -5,27 +5,22 @@
 </template>
 
 <script>
-import HomePage from './components/HomePage.vue'
+import HomePage from "./components/HomePage.vue";
 
 export default {
-  name: 'app',
+  name: "app",
   components: {
     HomePage
   }
-}
+};
 </script>
 
 <style lang="scss">
-
-@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Quicksand');
+@import url("https://fonts.googleapis.com/css?family=Montserrat:300,400,700");
 #app {
-  font-family: 'Montserrat','Quicksand','Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Montserrat", "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 }
-strong {
-  color: #4bc58f !important;
-}
-
 </style>

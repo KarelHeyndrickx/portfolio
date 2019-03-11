@@ -100,7 +100,6 @@
         <h5 class="subtitle is-4 has-text-centered white margin-top-20">{{this.sendSucceeded}}</h5>
       </div>
     </transition>
-   
   </div>
 </template>
 
@@ -166,18 +165,19 @@ export default {
     }
   },
   mounted() {
-      this.$nextTick(function() {
-
+    this.$nextTick(function() {
       let emailJSscript = document.createElement("script");
-      emailJSscript.setAttribute("src","https://cdn.emailjs.com/sdk/2.3.2/email.min.js");
-      document.head.appendChild(emailJSscript);      
+      emailJSscript.setAttribute(
+        "src",
+        "https://cdn.emailjs.com/sdk/2.3.2/email.min.js"
+      );
+      document.head.appendChild(emailJSscript);
     });
   }
 };
 </script>
 
 <style>
-
 input.input,
 textarea {
   background-color: transparent !important;
@@ -227,8 +227,7 @@ textarea {
   cursor: pointer;
   padding: 20px !important;
   line-height: 0px !important;
-    animation: attention 4s ease infinite;
-
+  animation: attention 4s ease infinite;
 }
 @keyframes attention {
   9% {
