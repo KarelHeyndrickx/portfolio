@@ -15,7 +15,7 @@
         <a class="mediaIcon" target="_blank" href="https://www.linkedin.com/in/karel-heyndrickx/">
           <i class="fa fa-linkedin"></i>
         </a>
-        <a class="mediaIcon" target="_blank" href="https://github.com/KarelHeyndrickx">
+        <a class="mediaIcon" target="_blank" href="https://github.com/HeyndrickxKarel">
           <i class="fa fa-github"></i>
         </a>
       </div>
