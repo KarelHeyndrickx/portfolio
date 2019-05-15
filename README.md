@@ -1,3 +1,29 @@
-# Portfolio
+# karel_heyndrickx_portfolio
 
-Deze designportfolio heb ik gemaakt tijdens mijn eerste kennismaking met Vue en met Adobe Illustrator. Omdat ik al reeds gehoord had dat animeren heel handig was met Vue wou ik een portfolio maken waarin ik mijn designs kon tonen en op die manier leerde ik ook terwijl Vue.  
+## Project setup
+```
+npm install
+```
+
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Run your tests
+```
+npm run test
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
