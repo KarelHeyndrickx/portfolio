@@ -12,7 +12,14 @@ export default {
   components: {
     HomePage
   },
-  title:"Karel Heyndrickx - E-portfolio"
+  title:"Karel Heyndrickx - E-portfolio",
+  created(){
+     var link = document.createElement('meta');
+    link.setAttribute('name', 'viewport');
+    link.setAttribute('content','width=device-width, initial-scale=1.0')
+    link.content = document.location;
+    document.getElementsByTagName('head')[0].appendChild(link);
+  }
 };
 </script>
 
